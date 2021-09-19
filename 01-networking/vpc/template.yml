@@ -18,10 +18,30 @@ Resources:
         Value: !Sub '${AppTag}'
       - Key: Name
         Value: MainVPC
+  SubNetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: MainVPC
+      CidrBlock: 10.20.0.0/20
+      AvailabilityZone: "us-east-1a"
+      Tags:
+      - Key: Name
+        Value: SubNetA
+  SubNetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: MainVPC
+      CidrBlock: 10.20.16.0/20
+      AvailabilityZone: "us-east-1b"
+      Tags:
+      - Key: Name
+        Value: SubNetB
 
 Outputs:
   MainVPC:
     Description: VPC
     Value: !Ref MainVPC
     Export:
-      Name: !Sub "${AWS::StackName}-VPCId"
+      Name: !Sub "${AWS::StackName}-VPCID"
