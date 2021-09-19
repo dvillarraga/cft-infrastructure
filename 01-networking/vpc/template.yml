@@ -18,3 +18,10 @@ Resources:
         Value: !Sub '${AppTag}'
       - Key: Name
         Value: MainVPC
+
+Outputs:
+  MainVPC:
+    Description: VPC
+    Value: !Ref MainVPC
+    Export:
+      Name: !Sub "${AWS::StackName}-VPCId"
