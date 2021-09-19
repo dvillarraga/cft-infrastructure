@@ -11,6 +11,9 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 172.35.0.0/16
+      Tags:
+        - Key: Name
+          Value: MainVPC
   
   #Public Subnets
   PublicSubnet1:
@@ -20,6 +23,9 @@ Resources:
       AvailabilityZone: us-east-1a
       CidrBlock: 172.35.1.0/24
       MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: PublicSubnet1
   
   PublicSubnet2:
     Type: 'AWS::EC2::Subnet'
@@ -28,6 +34,9 @@ Resources:
       AvailabilityZone: us-east-1b
       CidrBlock: 172.35.2.0/24
       MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: PublicSubnet2
   
   #Private Subnets
   PrivateSubnet1:
@@ -37,6 +46,9 @@ Resources:
       AvailabilityZone: us-east-1a
       CidrBlock: 172.35.3.0/24
       MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: PrivateSubnet1
   
   PrivateSubnet2:
     Type: 'AWS::EC2::Subnet'
@@ -45,6 +57,9 @@ Resources:
       AvailabilityZone: us-east-1b
       CidrBlock: 172.35.4.0/24
       MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: PrivateSubnet2
   
   InternetGateway:
     Type: 'AWS::EC2::InternetGateway'
