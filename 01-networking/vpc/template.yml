@@ -16,3 +16,5 @@ Resources:
       Tags:
       - Key: app
         Value: !Sub '${AppTag}'
+      - Key: Name
+        Value: MainVPC
