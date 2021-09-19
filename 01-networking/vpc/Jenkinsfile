@@ -10,7 +10,8 @@ properties([
 def region = params.region
 
 cloudformation_pipeline {
-    region = region
-    stackName = 'vpc'
-    templateFile = '01-networking/vpc/template.yml'
+    region        = region
+    stackName     = 'vpc'
+    appTag        = 'network-infrastructure'
+    templateFile  = '01-networking/vpc/template.yml'
 }
