@@ -21,5 +21,10 @@ Resources:
               AWS: 
                 - "arn:aws:iam::${AWS::AccountId}:user/cloudformation"
             Action: 
-              - "ecr:*"
-
+              - "ecr:GetDownloadUrlForLayer"
+              - "ecr:BatchGetImage"
+              - "ecr:BatchCheckLayerAvailability"
+              - "ecr:PutImage"
+              - "ecr:InitiateLayerUpload"
+              - "ecr:UploadLayerPart"
+              - "ecr:CompleteLayerUpload"
