@@ -12,7 +12,7 @@ Resources:
     Properties: 
       InstanceProfileName: 'jenkins-instance-profile'
       Roles: 
-        - Ref JenkinsEC2Role
+        - !Ref JenkinsEC2Role
   JenkinsEC2Role:
     Type: 'AWS::IAM::Role'
     Properties:
