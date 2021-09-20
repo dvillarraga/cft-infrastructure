@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: VPC
+
+Parameters:
+  AppTag:
+    Type: String
+    Default: 'network-infrastructure'
+
+Resources:
+
+  PublicSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: 'publicsg'
+      GroupDescription: 'WARNING: Allow 22 from anywhere'
+      VpcId: !ImportValue 'vpc-VPCID'
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
