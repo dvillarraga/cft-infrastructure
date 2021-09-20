@@ -7,7 +7,12 @@ Parameters:
     Default: 'iam-infrastructure'
 
 Resources:
-
+  JenkinsInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: 'jenkins-instance-profile'
+      Roles: 
+        - Ref JenkinsEC2Role
   JenkinsEC2Role:
     Type: 'AWS::IAM::Role'
     Properties:
