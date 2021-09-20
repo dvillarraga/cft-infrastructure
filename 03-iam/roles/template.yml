@@ -50,3 +50,10 @@ Resources:
               - 'logs:PutLogEvents'
               - 'ecr:*'
             Resource: '*'
+
+Outputs:
+  JenkinsInstanceProfile:
+    Description: VPC
+    Value: !GetAtt JenkinsInstanceProfile.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-JenkinsInstanceProfile"
