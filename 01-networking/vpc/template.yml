@@ -142,6 +142,19 @@ Resources:
       SubnetId: !Ref PrivateSubnet2
       RouteTableId: !Ref PrivateRouteTable
 
+  PublicSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: 'publicsg'
+      GroupDescription: 'WARNING: Allow 22 from anywhere'
+      VpcId:
+        Ref: MainVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+
 Outputs:
   MainVPC:
     Description: VPC
