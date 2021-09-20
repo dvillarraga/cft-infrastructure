@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: ECR Repo
+
+Parameters:
+  AppTag:
+    Type: String
+    Default: 'repo-infrastructure'
+
+Resources:
+  AppRepository: 
+    Type: AWS::ECR::Repository
+    Properties: 
+      RepositoryName: "credential-registry"
+      RepositoryPolicyText: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Sid: AllowPushPull
+            Effect: Allow
+            Principal: 
+              AWS: 
+                - "arn:aws:iam::${AWS::AccountId}:user/cloudformation"
+            Action: 
+              - "ecr:*"
+
