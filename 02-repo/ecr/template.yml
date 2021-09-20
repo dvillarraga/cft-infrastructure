@@ -19,7 +19,7 @@ Resources:
             Effect: Allow
             Principal: 
               AWS: 
-                - "arn:aws:iam::${AWS::AccountId}:user/cloudformation"
+                - !Sub "arn:aws:iam::${AWS::AccountId}:user/cloudformation"
             Action: 
               - "ecr:GetDownloadUrlForLayer"
               - "ecr:BatchGetImage"
