@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: VPC
+
+Parameters:
+  AppTag:
+    Type: String
+    Default: 'iam-infrastructure'
+
+Resources:
+
+  JenkinsEC2Role:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: 'jenkins-ec2-role'
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - !Ref JenkinsEC2Policy
+  
+  JenkinsEC2Policy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: 'jenkins-ec2-policy'
+      Description: >-
+        Jenkins EC2 Policy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - 's3:*'
+              - 'ec2:CreateNetworkInterface'
+              - 'ec2:AttachNetworkInterface'
+              - 'ec2:DescribeNetworkInterfaces'
+              - 'ec2:DeleteNetworkInterface'
+              - 'logs:CreateLogGroup'
+              - 'logs:CreateLogStream'
+              - 'logs:PutLogEvents'
+              - 'ecr:*'
+            Resource: '*'
