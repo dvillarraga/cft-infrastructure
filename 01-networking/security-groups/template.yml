@@ -12,7 +12,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: 'publicsg'
-      GroupDescription: 'WARNING: Allowing 22 from anywhere'
+      GroupDescription: 'WARNING: Allow 22 from anywhere'
       VpcId: !ImportValue 'vpc-VPCID'
       SecurityGroupIngress:
       - IpProtocol: tcp
