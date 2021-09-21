@@ -17,9 +17,12 @@ Parameters:
   KeyName:
     Type: String
     Default: 'oscarvillarraga'
-  SubnetId:
+  SubnetId1:
     Type: String
     Default: 'subnet-02fff7c1d81cd7974'
+  SubnetId2:
+    Type: String
+    Default: 'subnet-0e487ebdb44bc2b6a'
   InstanceType:
     Description: EC2 instance type
     Type: String
@@ -138,7 +141,8 @@ Resources:
         - Key: idle_timeout.timeout_seconds
           Value: '30'
       Subnets: 
-        - !Ref SubnetId
+        - !Ref SubnetId1
+        - !Ref SubnetId2
       SecurityGroups:
         - !Ref EcsSecurityGroup
   ALBListener:
@@ -182,7 +186,9 @@ Resources:
   ECSAutoScalingGroup:
     Type: 'AWS::AutoScaling::AutoScalingGroup'
     Properties:
-      VPCZoneIdentifier: !Ref SubnetId
+      VPCZoneIdentifier: 
+        - !Ref SubnetId1
+        - !Ref SubnetId2
       LaunchConfigurationName: !Ref ContainerInstances
       MinSize: '1'
       MaxSize: !Ref MaxSize
