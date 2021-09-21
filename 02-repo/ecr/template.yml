@@ -11,6 +11,23 @@ Resources:
     Type: AWS::ECR::Repository
     Properties: 
       RepositoryName: "credential-registry"
+      ImageTagMutability: 'IMMUTABLE'
+      RepositoryPolicyText: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Sid: AllowPushPull
+            Effect: Allow
+            Principal: 
+              AWS: 
+                - !Sub "arn:aws:iam::${AWS::AccountId}:user/cloudformation"
+            Action: 
+              - "ecr:*"
+  AppDevelopmentRepository: 
+    Type: AWS::ECR::Repository
+    Properties: 
+      RepositoryName: "credential-registry-snapshots"
+      ImageTagMutability: 'MUTABLE'
       RepositoryPolicyText: 
         Version: "2012-10-17"
         Statement: 
