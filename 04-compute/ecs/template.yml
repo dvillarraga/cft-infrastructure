@@ -12,10 +12,10 @@ Parameters:
     Type: String
     Default: 'ami-087c17d1fe0178315'
   KeyName:
-    Type: Strig
+    Type: String
     Default: 'oscarvillarraga'
   SubnetId:
-    Type: Strig
+    Type: String
     Default: 'subnet-02fff7c1d81cd7974'
   InstanceType:
     Description: EC2 instance type
