@@ -28,6 +28,17 @@ Resources:
     Properties: 
       RepositoryName: "credential-registry-snapshots"
       ImageTagMutability: 'MUTABLE'
+      LifecyclePolicy: 
+        LifecyclePolicyText:
+          rules:
+            - rulePriority: 1
+              description: 'untagged images'
+              selection:
+                tagStatus: untagged
+                countType: sinceImagePushed
+                countUnit: 1
+                countNumber: 1
+          
       RepositoryPolicyText: 
         Version: "2012-10-17"
         Statement: 
