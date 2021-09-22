@@ -29,6 +29,7 @@ Resources:
       MasterUserPassword: !Sub "{{resolve:ssm-secure:/${DatabaseName}/MasterPassword:1}}"
       VpcSecurityGroupIds:
         - !ImportValue 'security-groups-DBSG'
+      DBSubnetGroupName: !ImportValue 'vpc-DBSubnetGroup'
 
   PGSQLInstance:
     Type: AWS::RDS::DBInstance
