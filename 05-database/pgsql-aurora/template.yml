@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: PGSQL - Aurora
+
+Parameters:
+  AppTag:
+    Type: String
+    Default: 'application'
+  DatabaseName:
+    Type: String
+    Default: 'pgsql-database'
+  EngineVersion:
+    Type: String
+    Default: '12.6'
+  DBInstanceIdentifier:
+    Type: String
+    Default: 'pgsql-instance'
+
+Mappings: 
+  EnvironmentMap:
+    dev:
+      DeletionProtection: true
+      InstanceClass: db.t3.large
+      SubnetGroup: dev-db-subnetgroup1
+      MemoryAlarm: nothing # Will not use
+      MemoryThreshold: 0  # Will not use
+      CPUAlarm: nothing # Will not use
+      CPUUtilizationThreshold: 0 # Will not use
+
+Resources:
+  PGSQLCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      BackupRetentionPeriod: 1
+      DatabaseName: !Sub "${DatabaseName}"
+      DBClusterIdentifier: !Sub "${DBInstanceIdentifier}-cluster"
+      DBClusterParameterGroupName: !Ref DBClusterParameter
+      Engine: aurora-postgresql
+      EngineVersion: !Sub ${EngineVersion}
+      MasterUsername: !Sub "{{resolve:ssm:${DatabaseName}/MasterUsername:1}}"
+      MasterUserPassword: !Sub "{{resolve:ssm-secure:${DatabaseName}/MasterPassword:1}}"
+      VpcSecurityGroupIds:
+        - !ImportValue 'security-groups-DBSG'
+
+  PGSQLInstance:
+    Type: AWS::RDS::DBInstance
+    Properties: 
+      DBClusterIdentifier: !Ref PGSQLCluster
+      DBInstanceClass: 'db.r5.large'
+      DBInstanceIdentifier:  !Sub "${DBInstanceIdentifier}" 
+      Engine: aurora-postgresql
+      EngineVersion: !Sub ${EngineVersion}
+
+  DBClusterParameter:
+    Type: AWS::RDS::DBDBClusterParameterGroup
+    Properties:
+      Description: !Sub 'ClusterParameterGroup for ${DBInstanceIdentifier}'
+      Family: 'aurora-postgresql12'
+      Parameters: 
+        timezone: 'America/New_York'
+        log_connections: 1
+        log_disconnections: 1
+        log_lock_waits: 1
+        log_temp_files: 0
+        log_statement: 'all'
+        log_min_duration_statement: 1000
+
+  
+
