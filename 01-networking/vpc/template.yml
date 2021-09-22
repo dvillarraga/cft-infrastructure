@@ -142,6 +142,15 @@ Resources:
       SubnetId: !Ref PrivateSubnet2
       RouteTableId: !Ref PrivateRouteTable
 
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties: 
+      DBSubnetGroupName: 'dbsubnet'
+      DBSubnetGroupDescription: 'DB Subnet Group'
+      SubnetIds: 
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+
 Outputs:
   MainVPC:
     Description: VPC
@@ -168,3 +177,8 @@ Outputs:
     Value: !Ref PrivateSubnet2
     Export:
       Name: !Sub "${AWS::StackName}-PrivateSubnet2"
+  DBSubnetGroup:
+    Description: DB Subnet Group
+    Value: !Ref DBSubnetGroup
+    Export:
+      Name: !Sub "${AWS::StackName}-DBSubnetGroup"
