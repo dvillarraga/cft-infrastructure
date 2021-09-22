@@ -11,7 +11,7 @@ def region = params.region
 
 cloudformation_pipeline {
     region        = region
-    stackName     = 'pgsql-aurora-app'
+    stackName     = 'pgsql-aurora-cluster'
     appTag        = 'database'
     templateFile  = '05-database/pgsql-aurora/template.yml'
 }

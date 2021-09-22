@@ -7,7 +7,7 @@ Parameters:
     Default: 'application'
   DatabaseName:
     Type: String
-    Default: 'pgsql-database'
+    Default: 'pgsql'
   EngineVersion:
     Type: String
     Default: '12.6'
@@ -32,12 +32,12 @@ Resources:
     Properties:
       BackupRetentionPeriod: 1
       DatabaseName: !Sub "${DatabaseName}"
-      DBClusterIdentifier: !Sub "${DBInstanceIdentifier}-cluster"
+      DBClusterIdentifier: !Sub "${DatabaseName}-cluster"
       DBClusterParameterGroupName: !Ref DBClusterParameter
       Engine: aurora-postgresql
       EngineVersion: !Sub ${EngineVersion}
-      MasterUsername: !Sub "{{resolve:ssm:${DatabaseName}/MasterUsername:1}}"
-      MasterUserPassword: !Sub "{{resolve:ssm-secure:${DatabaseName}/MasterPassword:1}}"
+      MasterUsername: !Sub "{{resolve:ssm:/${DatabaseName}/MasterUsername:1}}"
+      MasterUserPassword: !Sub "{{resolve:ssm-secure:/${DatabaseName}/MasterPassword:1}}"
       VpcSecurityGroupIds:
         - !ImportValue 'security-groups-DBSG'
 
