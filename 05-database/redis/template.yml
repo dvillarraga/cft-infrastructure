@@ -1,0 +1,31 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Redis Cluster
+
+Parameters:
+  AppTag:
+    Type: String
+    Default: 'database'
+
+Resources:
+  RedisCluster:
+    Type: AWS::ElastiCache::ReplicationGroup
+    Properties:
+      CacheNodeType: cache.t3.micro
+      CacheSubnetGroupName:
+        Ref: RedisCacheSubnetGroup
+      Engine: redis
+      EngineVersion: 5.0.0
+      NumCacheClusters: 1
+      ReplicationGroupId: !Sub "redis-cluster"
+      ReplicationGroupDescription: Redis Cluster
+      SecurityGroupIds:
+        - !ImportValue 'security-groups-DBSG'
+  
+  RedisCacheSubnetGroup:
+    Type: 'AWS::ElastiCache::SubnetGroup'
+    Properties:
+      Description: 'Redis Cache Subnet Group'
+      SubnetIds:
+        - !ImportValue 'vpc-PrivateSubnet1'
+        - !ImportValue 'vpc-PrivateSubnet2'
