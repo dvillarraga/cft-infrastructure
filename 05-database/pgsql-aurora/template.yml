@@ -51,7 +51,7 @@ Resources:
       EngineVersion: !Sub ${EngineVersion}
 
   DBClusterParameter:
-    Type: AWS::RDS::DBDBClusterParameterGroup
+    Type: AWS::RDS::DBClusterParameterGroup
     Properties:
       Description: !Sub 'ClusterParameterGroup for ${DBInstanceIdentifier}'
       Family: 'aurora-postgresql12'
