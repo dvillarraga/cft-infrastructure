@@ -15,17 +15,6 @@ Parameters:
     Type: String
     Default: 'pgsql-instance'
 
-Mappings: 
-  EnvironmentMap:
-    dev:
-      DeletionProtection: true
-      InstanceClass: db.t3.large
-      SubnetGroup: dev-db-subnetgroup1
-      MemoryAlarm: nothing # Will not use
-      MemoryThreshold: 0  # Will not use
-      CPUAlarm: nothing # Will not use
-      CPUUtilizationThreshold: 0 # Will not use
-
 Resources:
   PGSQLCluster:
     Type: AWS::RDS::DBCluster
@@ -49,6 +38,7 @@ Resources:
       DBInstanceIdentifier:  !Sub "${DBInstanceIdentifier}" 
       Engine: aurora-postgresql
       EngineVersion: !Sub ${EngineVersion}
+      DBSubnetGroupName: !ImportValue 'vpc-DBSubnetGroup'
 
   DBClusterParameter:
     Type: AWS::RDS::DBClusterParameterGroup
