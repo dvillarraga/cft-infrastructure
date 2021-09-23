@@ -40,8 +40,6 @@ Resources:
       Engine: aurora-postgresql
       EngineVersion: !Sub ${EngineVersion}
       DBSubnetGroupName: !ImportValue 'vpc-DBSubnetGroup'
-      DBSecurityGroups: 
-        - !ImportValue 'security-groups-DBSG'
 
   DBClusterParameter:
     Type: AWS::RDS::DBClusterParameterGroup
