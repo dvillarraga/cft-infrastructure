@@ -25,6 +25,7 @@ Resources:
       DBClusterParameterGroupName: !Ref DBClusterParameter
       Engine: aurora-postgresql
       EngineVersion: !Sub ${EngineVersion}
+      Port: 5432
       MasterUsername: !Sub "{{resolve:ssm:/${DatabaseName}/MasterUsername:1}}"
       MasterUserPassword: !Sub "{{resolve:ssm-secure:/${DatabaseName}/MasterPassword:1}}"
       VpcSecurityGroupIds:
