@@ -11,6 +11,7 @@ Resources:
   RedisCluster:
     Type: AWS::ElastiCache::ReplicationGroup
     Properties:
+      AutomaticFailoverEnabled: false
       CacheNodeType: cache.t3.micro
       CacheSubnetGroupName:
         Ref: RedisCacheSubnetGroup
