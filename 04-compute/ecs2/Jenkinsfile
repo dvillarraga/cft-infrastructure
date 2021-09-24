@@ -1,0 +1,17 @@
+#!groovy
+@Library('jenkins-shared-library') _
+
+properties([
+  parameters([
+    string(name: 'region', defaultValue: 'us-east-1', description: 'AWS Region'),    
+   ])
+])
+
+def region = params.region
+
+cloudformation_pipeline {
+    region        = region
+    stackName     = 'ecs-bg-app'
+    appTag        = 'application'
+    templateFile  = '04-compute/ecs2/template.yml'
+}
