@@ -6,7 +6,16 @@ Description: ECS
 Parameters:
   AppTag:
     Type: String
-    Default: 'ecs-bg-app'  
+    Default: 'ecs-bg-app'
+  Vpc:
+    Type: 'AWS::EC2::VPC::Id'
+    Default: 'vpc-0a168f94cca6b4da0'
+  Subnet1:
+    Type: 'AWS::EC2::Subnet::Id'
+    Default: 'subnet-0e487ebdb44bc2b6a'
+  Subnet2:
+    Type: 'AWS::EC2::Subnet::Id'
+    Default: 'subnet-02fff7c1d81cd7974'
 
 Hooks:
   CodeDeployBlueGreenHook:
@@ -41,7 +50,7 @@ Resources:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: Security group for ec2 access
-      VpcId: !ImportValue 'vpc-VPCID'
+      VpcId: !Ref Vpc
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
@@ -73,7 +82,7 @@ Resources:
           Value: Example
       TargetType: ip
       UnhealthyThresholdCount: 4
-      VpcId: !ImportValue 'vpc-VPCID'
+      VpcId: !Ref Vpc
   ALBTargetGroupGreen:
     Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
     Properties:
@@ -92,7 +101,7 @@ Resources:
           Value: Example
       TargetType: ip
       UnhealthyThresholdCount: 4
-      VpcId: !ImportValue 'vpc-VPCID'
+      VpcId: !Ref Vpc
   ExampleALB:
     Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     Properties:
@@ -100,8 +109,8 @@ Resources:
       SecurityGroups:
         - !Ref ExampleSecurityGroup
       Subnets:
-        - !ImportValue 'vpc-PublicSubnet1'
-        - !ImportValue 'vpc-PublicSubnet2'
+        - !Ref Subnet1
+        - !Ref Subnet2
       Tags:
         - Key: Group
           Value: Example
@@ -190,8 +199,8 @@ Resources:
           SecurityGroups:
             - !Ref ExampleSecurityGroup
           Subnets:
-            - !ImportValue 'vpc-PublicSubnet1'
-            - !ImportValue 'vpc-PublicSubnet2'
+            - !Ref Subnet1
+            - !Ref Subnet2
       PlatformVersion: 1.4.0
       Scale:
         Unit: PERCENT
