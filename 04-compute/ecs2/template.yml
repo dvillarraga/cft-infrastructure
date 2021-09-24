@@ -166,7 +166,7 @@ Resources:
         - Arn
       ContainerDefinitions:
         - Name: DemoApp
-          Image: 'nginxdemos/hello:0.2-plain-text'
+          Image: 'nginxdemos/hello:latest'
           Essential: true
           PortMappings:
             - HostPort: 80
